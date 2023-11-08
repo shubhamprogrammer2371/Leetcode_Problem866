@@ -1,0 +1,32 @@
+int primeAndPalindrome(int n)
+{
+    int prime = 1 , temp = n , rev = 0;
+    for( int i = 2 ; i <= sqrt(n) ; i++)
+    {
+        if(!(n%i))
+        {
+            prime = 0;
+            break;
+        }
+    }
+    while(temp)
+    {
+        rev = rev*10 + temp%10;
+        temp /= 10;
+    }
+    return (prime) && (n == rev);
+}
+int primePalindrome(int n) {
+    if((n == 1) || (n == 2))
+        return 2;
+    for( int i = (n&1) ? n : n+1 ; i < INT_MAX ; i += 2)
+    {
+        if(primeAndPalindrome(i))
+            return i;
+        // all even pallindromes are divided by 11 so skip them.
+        i = (i > 1e7 && i < 1e8) ? 1e8 + 1 : i;
+        i = (i > 1e5 && i < 1e6) ? 1e6 + 1 : i;
+        i = (i > 1e3 && i < 1e4) ? 1e4 + 1 : i;
+    }
+    return 0;
+}
